@@ -1,3 +1,4 @@
+#pragma once
 // here we will define some constants for convicence also some utils.
 #include <iostream>
 #include <string>
@@ -32,12 +33,12 @@ std::string version_to_string(Version ver);
 std::string method_to_string(Method meth);
 class header {
 public:
-    header(std::string,std::string);
-    std::string getKey() const;
-    std::string getVal() const;
-    void setKey();
-    void setVal();
-    std:string construct() const;
+    header(const std::string&,const std::string&);
+    std::string getKey() const {return key;}
+    std::string getVal() const {return value;}
+    void setKey(const std::string& new_key) {key = new_key;}
+    void setVal(const std::string& new_value) {value = new_value;}
+    std::string construct() const;    // this will make a header format like : (key: value)
     
 private:
     std::string key;

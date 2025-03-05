@@ -78,3 +78,14 @@ std::string method_to_string(Method meth){
     return http::CONV_ERR;
 }
 // Here is the imlimentation for the header class.
+header::header(const std::string& key_wanted,const std::string& value_needed){
+    this->key = key_wanted;
+    this->value = value_needed;
+}
+// This methode will make the header line that will be added to the http request later on.
+std::string header::construct() const{
+    std::string header_line = key;
+    header_line += ": ";
+    header_line += value;
+    return header_line;
+}

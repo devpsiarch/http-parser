@@ -1,5 +1,6 @@
 src := $(wildcard source/*.cpp)
-main: $(src) main.cpp
+headers := $(wildcard include/*.h)
+main: $(src) $(headers) main.cpp
 	g++ main.cpp $(src) -o main
 run:main
 	./main
