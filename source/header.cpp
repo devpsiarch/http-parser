@@ -78,14 +78,23 @@ std::string method_to_string(Method meth){
     return http::CONV_ERR;
 }
 // Here is the imlimentation for the header class.
-header::header(const std::string& key_wanted,const std::string& value_needed){
-    this->key = key_wanted;
-    this->value = value_needed;
+header::header(const std::string& key_wanted,const std::string& value_needed) noexcept
+                :key(key) , value(value){
 }
 // This methode will make the header line that will be added to the http request later on.
-std::string header::construct() const{
+std::string header::construct() const noexcept {
     std::string header_line = key;
     header_line += ": ";
     header_line += value;
+    header_line += http::END_LINE;
     return header_line;
+}
+ // this methode as the name dictates , will make a header object out of a string 
+header header::deconstruct(const std::string& str){
+    std::vector<std::string> pairs = split(str,": ");
+    if(pairs.size() != 2){
+        throw std::runtime_error("Header string ('" + str + "') consisted of " 
+                         + std::to_string(pairs.size()) + " keys, should be == 2.");
+    }
+    return header(pairs[0],pairs[1]);
 }

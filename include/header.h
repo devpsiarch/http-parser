@@ -33,13 +33,13 @@ std::string version_to_string(Version ver);
 std::string method_to_string(Method meth);
 class header {
 public:
-    header(const std::string&,const std::string&);
+    header(const std::string&,const std::string&) noexcept;
     std::string getKey() const {return key;}
     std::string getVal() const {return value;}
     void setKey(const std::string& new_key) {key = new_key;}
     void setVal(const std::string& new_value) {value = new_value;}
-    std::string construct() const;    // this will make a header format like : (key: value)
-    
+    std::string construct() const noexcept ;    // this will make a header format like : (key: value)
+    static header deconstruct(const std::string&);
 private:
     std::string key;
     std::string value;
