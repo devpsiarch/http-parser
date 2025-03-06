@@ -20,7 +20,6 @@ std::string request::construct() const noexcept {
     // making Headers (header.key: header.value\r\n)
     for(const header& H:this->headers){
         complete_request += H.construct();
-        complete_request += http::END_LINE; 
     }
     // Adding the Empty line (\r\n).
     complete_request += http::END_LINE;

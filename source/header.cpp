@@ -79,7 +79,7 @@ std::string method_to_string(Method meth){
 }
 // Here is the imlimentation for the header class.
 header::header(const std::string& key_wanted,const std::string& value_needed) noexcept
-                :key(key) , value(value){
+                :key(key_wanted) , value(value_needed){
 }
 // This methode will make the header line that will be added to the http request later on.
 std::string header::construct() const noexcept {
@@ -96,5 +96,6 @@ header header::deconstruct(const std::string& str){
         throw std::runtime_error("Header string ('" + str + "') consisted of " 
                          + std::to_string(pairs.size()) + " keys, should be == 2.");
     }
+    // extracting the values (we miss the last two bytes because they are the http::END_LINE)
     return header(pairs[0],pairs[1]);
 }
