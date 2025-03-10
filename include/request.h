@@ -10,6 +10,8 @@ public:
     std::string getVersion() const noexcept {return version_to_string(version);}
     std::string getMethod() const noexcept {return method_to_string(method);}
     std::string getResourse() const noexcept {return resourse;}
+    void setMethod(const Method)  noexcept;
+    void setHeaders(const std::vector<header>&) noexcept; 
     static request deconstruct(const std::string&);
 private:
     Method method;

@@ -31,13 +31,15 @@ request request::deconstruct(const std::string& message){
     // here we are spliting the content from the headers.
     std::vector<std::string> lines = split(message,http::END_LINE);
     if(lines.size() < 1){
-        throw std::runtime_error("HTTP Request ('" + std::string(message) + "') consisted of " 
-                                 + std::to_string(lines.size()) + " lines, should be >= 1.");
+        throw std::runtime_error("HTTP Request ('" +
+        std::string(message) + "') consisted of " + 
+        std::to_string(lines.size()) + " lines, should be >= 1.");
     }
     std::vector<std::string> start_line_secs = split(lines[0]," ");
     if(start_line_secs.size() != 3){
-        throw std::runtime_error("HTTP Request startline ('" + lines[0] + "') consisted of " 
-                                 + std::to_string(start_line_secs.size()) + " segments, should be += 3.");
+        throw std::runtime_error("HTTP Request startline ('" +
+        lines[0] + "') consisted of " +
+        std::to_string(start_line_secs.size()) + " segments, should be == 3.");
     }
     // extracting the data we need for the startline.
     Method req_met = string_to_method(start_line_secs[0]);
@@ -49,4 +51,13 @@ request request::deconstruct(const std::string& message){
         req_headers.push_back(header::deconstruct(lines[i]));
     }
     return request(req_met,req_resourse,req_ver,req_headers);
+}
+// i made this option availble for the ability of using a single request object
+// to conduct http connection , its reasonable enough.
+void request::setMethod(const Method new_method) noexcept{
+    if(new_method == method) return;
+    method = new_method;
+}
+void request::setHeaders(const std::vector<header>& new_headers) noexcept {
+    headers = new_headers;
 }
